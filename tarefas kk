@@ -1,0 +1,100 @@
+// Sistema de Bem-Estar Escolar
+import java.util.ArrayList;
+import java.util.List;
+
+class Usuario {
+    private String nome;
+    private String email;
+
+    public Usuario(String nome, String email) {
+        this.nome = nome;
+        this.email = email;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPermissoes() {
+        return "Permissões básicas";
+    }
+
+    @Override
+    public String toString() {
+        return "Nome: " + nome + " | Email: " + email;
+    }
+}
+
+class Aluno extends Usuario {
+    public Aluno(String nome, String email) {
+        super(nome, email);
+    }
+
+    @Override
+    public String getPermissoes() {
+        return "Visualizar atividades e relatórios";
+    }
+}
+
+class Professor extends Usuario {
+    public Professor(String nome, String email) {
+        super(nome, email);
+    }
+
+    @Override
+    public String getPermissoes() {
+        return "Cadastrar atividades e acompanhar alunos";
+    }
+}
+
+class Administrador extends Usuario {
+    public Administrador(String nome, String email) {
+        super(nome, email);
+    }
+
+    @Override
+    public String getPermissoes() {
+        return "Gerenciar todo o sistema";
+    }
+}
+
+public class SistemaBemEstarEscolar {
+
+    private static List<Usuario> usuarios = new ArrayList<>();
+
+    public static void cadastrarUsuario(Usuario usuario) {
+        usuarios.add(usuario);
+        System.out.println(usuario.getNome() + " cadastrado com sucesso!");
+    }
+
+    public static void listarUsuarios() {
+        System.out.println("\n=== USUÁRIOS CADASTRADOS ===");
+        for (Usuario u : usuarios) {
+            System.out.println(u);
+            System.out.println("Permissões: " + u.getPermissoes());
+            System.out.println("--------------------------");
+        }
+    }
+
+    public static void main(String[] args) {
+
+        try {
+            Aluno aluno = new Aluno("Maria", "maria@email.com");
+            Professor professor = new Professor("João", "joao@email.com");
+            Administrador admin = new Administrador("Ana", "ana@email.com");
+
+            cadastrarUsuario(aluno);
+            cadastrarUsuario(professor);
+            cadastrarUsuario(admin);
+
+            listarUsuarios();
+
+        } catch (Exception e) {
+            System.out.println("Erro no sistema: " + e.getMessage());
+        }
+    }
+}
